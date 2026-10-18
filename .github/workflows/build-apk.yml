@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'CavemanQuest_v45_GLB_WEBVIEW_FIX.zip'
+      - CavemanQuest_v45_2_GLB_WEBVIEW_FIX
       - '.github/workflows/build-apk.yml'
 
 jobs:
