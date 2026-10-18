@@ -23,7 +23,7 @@ jobs:
 
       - name: Extract Android project
         run: |
-          unzip -o CavemanQuest_Android_Project_v9_LANDSCAPE.zip -d project
+          unzip -o CavemanQuest_Android_Project_v36_TEST_CANDIDATE.zip -d project
           find project -name settings.gradle -print
 
       - name: Build APK
