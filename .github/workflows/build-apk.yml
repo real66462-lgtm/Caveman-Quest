@@ -1,11 +1,17 @@
-name: Build Caveman Quest APK
+
+name: Build Caveman Quest v41
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'CavemanQuest_v41_ROOT_READY.zip'
+      - '.github/workflows/build-apk.yml'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,18 +27,20 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Extract Android project
+      - name: Extract v41 project
         run: |
-          unzip -o CavemanQuest_Android_Project_v36_TEST_CANDIDATE.zip -d project
-          find project -name settings.gradle -print
+          mkdir project
+          unzip -o CavemanQuest_v41_ROOT_READY.zip -d project
+          test -f project/settings.gradle
+          test -f project/app/build.gradle
 
       - name: Build APK
-        working-directory: project/CavemanQuestAndroid
+        working-directory: project
         run: gradle --no-daemon assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Caveman-Quest-APK
-          path: project/CavemanQuestAndroid/app/build/outputs/apk/debug/app-debug.apk
+          name: Caveman-Quest-v41-APK
+          path: project/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
